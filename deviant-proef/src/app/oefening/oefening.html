@@ -1,0 +1,72 @@
+@if (loading()) {
+  <p>De oefening wordt geladen</p>
+} @else if (error()) {
+  <p>{{ error() }}</p>
+} @else {
+  <h1>{{ oefening()?.name }}</h1>
+
+  @if (!started()) {
+    <p>{{ oefening()?.introText }}</p>
+
+    <button (click)="setStarted()">Start oefening</button>
+  } @else {
+    <form>
+      @for (item of oefening()?.questions; track item.questionId) {
+        @switch (item.questionType) {
+          @case ('multiple_choice') {
+            <fieldset [disabled]="finished()" [class.finished]="finished()">
+              <legend>{{ item.question }}</legend>
+
+              @for (answer of item.answers; track answer.answerId) {
+                <div>
+                  <input
+                    type="radio"
+                    [name]="item.questionId"
+                    [id]="answer.answerId"
+                    [checked]="item.userAnswer === answer.answerId"
+                    (change)="answerQuestion(item.questionId, answer.answerId)"
+                    [value]="answer.answer"
+                  />
+                  <label
+                    [for]="answer.answerId"
+                    [class.correct]="
+                      item.userAnswer === answer.answerId && answer.isCorrect && finished()
+                    "
+                    [class.incorrect]="
+                      item.userAnswer === answer.answerId && !answer.isCorrect && finished()
+                    "
+                    >{{ answer.answer }}</label
+                  >
+                </div>
+              }
+            </fieldset>
+          }
+          @case ('open_question') {
+            <div class="question-open">
+              <label [for]="item.questionId">{{ item.question }}</label>
+              @if (!finished()) {
+                <textarea
+                  [disabled]="finished()"
+                  [id]="item.questionId"
+                  [name]="item.questionId.toString()"
+                  rows="5"
+                  cols="50"
+                  [value]="item.userAnswer ?? ''"
+                  (blur)="answerQuestion(item.questionId, $any($event.target).value)"
+                ></textarea>
+              } @else if (finished()) {
+                <div class="usertext">{{ item.userAnswer }}</div>
+              }
+            </div>
+          }
+        }
+      }
+    </form>
+    @if (!finished()) {
+      <button (click)="onTurnIn()">Lever oefening in</button>
+    }
+  }
+  @if (finished()) {
+    <button (click)="onClearOefening()">Wis mijn antwoorden</button>
+  }
+}
