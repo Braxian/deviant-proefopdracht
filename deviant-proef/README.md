@@ -4,11 +4,34 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 
 ## Development server
 
-To start a local development server, run:
+Pull het project naar je editor en navigeer in je terminal naar de deviant-proef map.
+
+Daar run je vervolgens
+
+```bash
+npm i
+```
+
+Om de dependancies te installeren.
+En vervolgens
 
 ```bash
 ng serve
 ```
+
+of
+
+```bash
+npm run start
+```
+
+Om de appplicatie te starten.
+
+Navigeer vervolgens in de browser naar
+
+http://localhost:4200/
+
+De applicatie start meteen in het scherm van de oefening.
 
 Signals worden in de applicatie gebruikt om reactief het component te beheren. Zodra de gebruiker een multiple choice keuze maakt of de textarea verlaat, wordt een functie getriggerd die de signal triggert om het gebruikersantwoord te updaten in de NgRx store.
 Deze Store wordt vervolgens ook geupdate via actions als de oefeningdata succesvol geladen is, niet kan laden, een error krijgt, de user een oefening start, de oefening "inlevert" of de oefening opnieuw wil starten.
