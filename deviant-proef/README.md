@@ -10,50 +10,9 @@ To start a local development server, run:
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Signals worden in de applicatie gebruikt om reactief het component te beheren. Zodra de gebruiker een multiple choice keuze maakt of de textarea verlaat, wordt een functie getriggerd die de signal triggert om het gebruikersantwoord te updaten in de NgRx store.
+Deze Store wordt vervolgens ook geupdate via actions als de oefeningdata succesvol geladen is, niet kan laden, een error krijgt, de user een oefening start, de oefening "inlevert" of de oefening opnieuw wil starten.
 
-## Code scaffolding
+En de data wordt vervolgens opgehaald via de selectors om weer gebruikt te kunnen worden in het scherm van de gebruiker, ook al is deze data niet per se reactief, zoals de tekst van een vraag bijvoorbeeld.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+De local storage wordt gebruikt om de data op te slaan in de browser van de gebruiker wanneer deze klaar is met het invoeren van de antwoorden. Zo kan deze data gebruikt worden als de gebruiker weer terugkomt in de applicatie. Persoonlijk zou ik dit opslaan per gegeven antwoord zodat de gebruiker niet per ongeluk zijn hele toets verwijderd voordat deze verstuurd is, maar dat was niet de scope van de opdracht.
